@@ -36,3 +36,8 @@ Finally, you can start the application:
 go run main.go
 ```
 This will launch the main application.
+
+
+### FYI
+When launching the rockets application which sends the post requests, use the following endpoint for this application:
+`http://localhost:8080/v1/rockets/messages`
