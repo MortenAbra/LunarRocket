@@ -1,10 +1,10 @@
-package types
+package dto
 
 import (
 	"time"
 )
 
-type RocketData struct {
+type RocketLaunchedDto struct {
 	Metadata struct {
 		Channel       string    `json:"channel"`
 		MessageNumber int       `json:"messageNumber"`
