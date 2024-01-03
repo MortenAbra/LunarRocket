@@ -25,6 +25,7 @@ func GetRocketHandlerInstance() RocketHandler {
 	}
 }
 
+// Function for handling processed data by RocketMessageService and distributing them to correct handler functions
 func (handler *RocketHandlerImpl) ProcessAndHandle(ctx context.Context, data types.RocketData) error {
 	processedMessages, err := handler.RocketMessageService.ProcessMessage(data)
 	if err != nil {
@@ -55,6 +56,7 @@ func (handler *RocketHandlerImpl) ProcessAndHandle(ctx context.Context, data typ
 	return nil
 }
 
+// Functions for submitting data to repository for updating rockets for specific actions
 func (handler *RocketHandlerImpl) launchRocket(ctx context.Context, r types.RocketData) error {
 	return handler.RocketRepository.CreateRocket(ctx, r)
 }
@@ -75,6 +77,7 @@ func (handler *RocketHandlerImpl) changeMission(ctx context.Context, r types.Roc
 	return handler.RocketRepository.UpdateRocketMission(ctx, r)
 }
 
+// Function for getting rockets from repository
 func (handler *RocketHandlerImpl) GetRockets(ctx context.Context) ([]types.RocketModel, error) {
 	rockets, err := handler.RocketRepository.GetRockets(ctx)
 	if err != nil {

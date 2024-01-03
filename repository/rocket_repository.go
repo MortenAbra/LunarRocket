@@ -28,6 +28,7 @@ func GetRocketRepositoryInstance() RocketRepository {
 	}
 }
 
+// Creates the initial rockets
 func (repo RocketRepositoryImpl) CreateRocket(ctx context.Context, data types.RocketData) error {
 	rocket := types.RocketModel{
 		Channel:       data.Metadata.Channel,
@@ -48,6 +49,7 @@ func (repo RocketRepositoryImpl) CreateRocket(ctx context.Context, data types.Ro
 	return nil
 }
 
+// Updates the speed for a specific rocket speed increase
 func (repo RocketRepositoryImpl) UpdateSpeedIncrease(ctx context.Context, data types.RocketData) error {
 	result := repo.db.Table("rockets").
 		Where("channel = ?", data.Metadata.Channel).
@@ -64,6 +66,7 @@ func (repo RocketRepositoryImpl) UpdateSpeedIncrease(ctx context.Context, data t
 	return nil
 }
 
+// Updates the speed for a specific rocket speed decrease
 func (repo RocketRepositoryImpl) UpdateSpeedDecrease(ctx context.Context, data types.RocketData) error {
 	result := repo.db.Table("rockets").
 		Where("channel = ?", data.Metadata.Channel).
@@ -80,6 +83,7 @@ func (repo RocketRepositoryImpl) UpdateSpeedDecrease(ctx context.Context, data t
 	return nil
 }
 
+// Updates the rocket status if it has exploded
 func (repo RocketRepositoryImpl) UpdateRocketStatus(ctx context.Context, data types.RocketData) error {
 
 	result := repo.db.Table("rockets").Where("channel = ?", data.Metadata.Channel).Updates(&types.RocketModel{
@@ -94,6 +98,7 @@ func (repo RocketRepositoryImpl) UpdateRocketStatus(ctx context.Context, data ty
 	return nil
 }
 
+// Updates the current mission of the rocket
 func (repo RocketRepositoryImpl) UpdateRocketMission(ctx context.Context, data types.RocketData) error {
 
 	result := repo.db.Table("rockets").Where("channel = ?", data.Metadata.Channel).Updates(&types.RocketModel{
@@ -108,6 +113,7 @@ func (repo RocketRepositoryImpl) UpdateRocketMission(ctx context.Context, data t
 	return nil
 }
 
+// Retrieves all rockets
 func (repo *RocketRepositoryImpl) GetRockets(ctx context.Context) ([]types.RocketModel, error) {
 	var rockets []types.RocketModel
 

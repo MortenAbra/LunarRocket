@@ -17,6 +17,7 @@ func main() {
 	// Initialize the database
 	connectors.InitDatabase(&cfg.Database)
 
+	// The port used
 	port := "8080"
 
 	// Initialize the router
@@ -24,6 +25,7 @@ func main() {
 
 	// Defines cors config
 	config := cors.DefaultConfig()
+	// This incomming requests from all ip addresses (not ideal)
 	config.AllowOrigins = []string{"*"}
 	config.AllowMethods = []string{"GET", "POST"}
 	r.Use(cors.New(config))

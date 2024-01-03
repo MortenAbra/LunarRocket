@@ -22,6 +22,11 @@ func NewRocketMessageService() RocketMessageService {
 	}
 }
 
+/* 
+	Processes the request based on the channel and the MessageNumber.
+	If a request is not the next expected MessageNumber, it will be added to the queue for the specific channel
+	If a value is the expected, the function will look through the queue to see if the next expected is present
+*/
 func (s *RocketMessageServiceImpl) ProcessMessage(data types.RocketData) ([]types.RocketData, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()

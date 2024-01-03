@@ -7,6 +7,7 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+// Loads the config yaml file and returns a config
 func LoadConfig(path string) *Config {
 	configFile, err := os.ReadFile(path)
 

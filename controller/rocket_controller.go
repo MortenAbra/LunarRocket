@@ -23,6 +23,7 @@ func GetRocketControllerInstance() RocketController {
 	}
 }
 
+// Function for handling rocket messages
 func (controller *RocketControllerImpl) GetMessages(ctx *gin.Context) {
 	content, exists := ctx.Get("messageContent")
 	if !exists {
@@ -37,6 +38,7 @@ func (controller *RocketControllerImpl) GetMessages(ctx *gin.Context) {
 		return
 	}
 
+	// Adds the message to a queue to be processed in correct order
 	err := controller.RocketHandler.ProcessAndHandle(ctx, msg)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Error occurred during processing of data"})
@@ -45,6 +47,7 @@ func (controller *RocketControllerImpl) GetMessages(ctx *gin.Context) {
 	ctx.JSON(http.StatusAccepted, gin.H{})
 }
 
+// Function for getting data for all rockets in the system
 func (controller *RocketControllerImpl) GetRockets(ctx *gin.Context) {
 	rockets, err := controller.RocketHandler.GetRockets(ctx)
 	if err != nil {
