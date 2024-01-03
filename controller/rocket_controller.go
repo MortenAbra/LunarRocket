@@ -10,6 +10,7 @@ import (
 
 type RocketController interface {
 	GetMessages(ctx *gin.Context)
+	GetRockets(ctx *gin.Context)
 }
 
 type RocketControllerImpl struct {
@@ -42,4 +43,15 @@ func (controller *RocketControllerImpl) GetMessages(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusAccepted, gin.H{})
+}
+
+func (controller *RocketControllerImpl) GetRockets(ctx *gin.Context) {
+	rockets, err := controller.RocketHandler.GetRockets(ctx)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "with retrieving rockets"})
+	}
+
+	rocketResponse := types.MapToRocketResponse(rockets)
+
+	ctx.JSON(http.StatusOK, rocketResponse)
 }

@@ -10,6 +10,7 @@ import (
 
 type RocketHandler interface {
 	ProcessAndHandle(ctx context.Context, data types.RocketData) error
+	GetRockets(ctx context.Context) ([]types.RocketModel, error)
 }
 
 type RocketHandlerImpl struct {
@@ -54,22 +55,31 @@ func (handler *RocketHandlerImpl) ProcessAndHandle(ctx context.Context, data typ
 	return nil
 }
 
-func (handler RocketHandlerImpl) launchRocket(ctx context.Context, r types.RocketData) error {
+func (handler *RocketHandlerImpl) launchRocket(ctx context.Context, r types.RocketData) error {
 	return handler.RocketRepository.CreateRocket(ctx, r)
 }
 
-func (handler RocketHandlerImpl) increaseSpeed(ctx context.Context, r types.RocketData) error {
+func (handler *RocketHandlerImpl) increaseSpeed(ctx context.Context, r types.RocketData) error {
 	return handler.RocketRepository.UpdateSpeedIncrease(ctx, r)
 }
 
-func (handler RocketHandlerImpl) decreaseSpeed(ctx context.Context, r types.RocketData) error {
+func (handler *RocketHandlerImpl) decreaseSpeed(ctx context.Context, r types.RocketData) error {
 	return handler.RocketRepository.UpdateSpeedDecrease(ctx, r)
 }
 
-func (handler RocketHandlerImpl) explodeRocket(ctx context.Context, r types.RocketData) error {
+func (handler *RocketHandlerImpl) explodeRocket(ctx context.Context, r types.RocketData) error {
 	return handler.RocketRepository.UpdateRocketStatus(ctx, r)
 }
 
-func (handler RocketHandlerImpl) changeMission(ctx context.Context, r types.RocketData) error {
+func (handler *RocketHandlerImpl) changeMission(ctx context.Context, r types.RocketData) error {
 	return handler.RocketRepository.UpdateRocketMission(ctx, r)
+}
+
+func (handler *RocketHandlerImpl) GetRockets(ctx context.Context) ([]types.RocketModel, error) {
+	rockets, err := handler.RocketRepository.GetRockets(ctx)
+	if err != nil {
+		return rockets, err
+	}
+
+	return rockets, nil
 }

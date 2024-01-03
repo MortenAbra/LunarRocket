@@ -22,3 +22,4 @@ type MessageContent struct {
 	Reason      string `json:"reason,omitempty"`
 	NewMission  string `json:"newMission,omitempty"`
 }
+

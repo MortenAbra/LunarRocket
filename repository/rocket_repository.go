@@ -15,6 +15,7 @@ type RocketRepository interface {
 	UpdateSpeedDecrease(ctx context.Context, data types.RocketData) error
 	UpdateRocketStatus(ctx context.Context, data types.RocketData) error
 	UpdateRocketMission(ctx context.Context, data types.RocketData) error
+	GetRockets(ctx context.Context) ([]types.RocketModel, error)
 }
 
 type RocketRepositoryImpl struct {
@@ -105,4 +106,15 @@ func (repo RocketRepositoryImpl) UpdateRocketMission(ctx context.Context, data t
 		return result.Error
 	}
 	return nil
+}
+
+func (repo *RocketRepositoryImpl) GetRockets(ctx context.Context) ([]types.RocketModel, error) {
+	var rockets []types.RocketModel
+
+	result := repo.db.Table("rockets").Find(&rockets)
+	if result.Error != nil {
+		return rockets, result.Error
+	}
+
+	return rockets, nil
 }

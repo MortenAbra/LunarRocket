@@ -10,10 +10,11 @@ import (
 func addRocketRoutes(r *gin.RouterGroup) {
 	rocketController := controller.GetRocketControllerInstance()
 
-	r.Use(gin.Recovery(), middleware.MessageDispatchMiddleware())
+	r.Use(gin.Recovery())
 
 	rocketGroup := r.Group("/rockets")
 	{
-		rocketGroup.POST("/messages", rocketController.GetMessages)
+		rocketGroup.POST("/messages", middleware.MessageDispatchMiddleware(), rocketController.GetMessages)
+		rocketGroup.GET("", rocketController.GetRockets)
 	}
 }
