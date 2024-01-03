@@ -12,24 +12,24 @@ chmod +x run.sh
 ```
 This script will run everything from fetching docker images, running the containers to starting the go program.
 
-Troubleshooting 🛠️
+### Troubleshooting 🛠️
 If the prior solution doesn't work, try the following.
 
-Docker Compose 🐳
+### Docker Compose 🐳
 If you're unable to run the run.sh file, try using Docker. First, start by setting up your environment using Docker Compose:
 ```bash
 docker compose up -d
 ```
 This command will set up all the necessary containers in detached mode, ensuring your environment is ready.
 
-Go Modules 📦
+### Go Modules 📦
 Next, download the Go modules required for the project:
 ```bash
 go mod download
 ```
 This step ensures that all the dependencies are correctly installed and ready for use.
 
-Run the Application 🌟
+### Run the Application 🌟
 Finally, you can start the application:
 
 ```bash
